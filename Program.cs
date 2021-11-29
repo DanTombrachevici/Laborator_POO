@@ -1,87 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+// C# program for the above approach. 
+using System;
 
-namespace ConsoleApp1
-{ 
-    class Box
+class GFG
 {
-        public float Height { get; set; }
-        public float Width { get; set; }
-        public float Depth { get; set; }
-        public Box()
-    {
-            Height = 1;
-            Width = 1;
-            Depth = 1;
 
-        }
-    public Box(float value)
-    {
-            Height = value;
-            Width = value;
-            Depth = value;
-
-        }
-    public Box(float height, float width, float depth)
-    {
-            Height = height;
-            Width = width;
-            Depth = depth;
-
-       }
-
-}
-
-    class Program
+    // Function to check 
+    // if parentheses are balanced 
+    public static bool isBalanced(String exp)
     {
 
+        // Initialising variables 
+        bool flag = true;
+        int count = 0;
 
-        static void Main(string[] args)
+        // Traversing the expression 
+        for (int i = 0; i < exp.Length; i++)
         {
-            Box box1 = new Box();
-            Box box2 = new Box(10);
-            Box box3 = new Box(20,30,40);
-            float A;
-            float V;
-           
-
-            Console.WriteLine("####################Box-1####################");
-            Console.WriteLine($"Height : {box1.Height}");
-            Console.WriteLine($"Height : {box1.Width}");
-            Console.WriteLine($"Height : {box1.Depth}");
-            Console.WriteLine("#############################################");
-
-            Console.WriteLine("####################Box-2####################");
-            Console.WriteLine($"Height : {box2.Height}");
-            Console.WriteLine($"Height : {box2.Width}");
-            Console.WriteLine($"Height : {box2.Depth}");
-            Console.WriteLine("#############################################");
-
-            Console.WriteLine("####################Box-3####################");
-            Console.WriteLine($"Height : {box3.Height}");
-            Console.WriteLine($"Height : {box3.Width}");
-            Console.WriteLine($"Height : {box3.Depth}");
-            Console.WriteLine("#############################################");
-
-            if (box3.Height == box3.Width && box3.Width == box3.Depth)
+            if (exp[i] == '(')
             {
-                A = box3.Depth * box3.Depth  *6;
-                V = box3.Depth * box3.Depth * box3.Depth;
-
-                Console.WriteLine($"Aria = {A}");
-                Console.WriteLine($"Volumul = {V}");
+                count++;
             }
-            else
+            if(exp[i] == ')')
             {
-                A = 2 * (box3.Depth * box3.Width + box3.Depth * box3.Height + box3.Width * box3.Height);
-                V =box3.Depth * box3.Width * box3.Height;
-                Console.WriteLine($"Aria = {A}");
-                Console.WriteLine($"Volumul = {V}");
-            }
 
+                // It is a closing parenthesis 
+                count--;
+            }
+            if (count < 0)
+            {
+
+                // This means there are 
+                // more Closing parenthesis 
+                // than opening ones 
+                flag = false;
+                break;
+            }
         }
+
+        // If count is not zero, 
+        // It means there are 
+        // more opening parenthesis 
+        if (count != 0)
+        {
+            flag = false;
+        }
+        return flag;
+    }
+
+    // Driver code
+    public static void Main(String[] args)
+    {
+        String exp1 = "2x - 3y + 25 / (2+5)*12 - ((29*4-2) + 32) -14";
+
+        if (isBalanced(exp1))
+            Console.WriteLine("True");
+        else
+            Console.WriteLine("False");
+
+        String exp2 = "2x - 3y + 25 / (-((29*4-2) + 32) -14 - (2+5)*12";
+
+        if (isBalanced(exp2))
+            Console.WriteLine("True");
+        else
+            Console.WriteLine("False");
+        String exp3 = "((((((((((((((((((((2x-4y * 98 )))))))))))))))))))))";
+
+        if (isBalanced(exp3))
+            Console.WriteLine("True");
+        else
+            Console.WriteLine("False");
     }
 }
+
+// This code is contributed by Amit Katiyar
